@@ -1,18 +1,5 @@
-"""
-A program that stores this book information:
-Title, Author
-Year, ISBN
-
-User can:
-View all records
-Search an entry
-Add entry
-Update entry
-Delete
-Close
-"""
-
 from tkinter import *
+import backend
 
 app = Tk()
 app.iconbitmap("icons/Bookstore.ico")
@@ -55,32 +42,41 @@ isbn_text=StringVar()
 isbn = Entry(app,textvariable=isbn_text)
 isbn.grid(row=1,column=3)
 
-# LISTBOX
-'''biglist = Listbox(app, width=40, height=10)
-biglist.grid(row=2, column=0,pady=20)'''
-
 # VIEW ALL BUTTON
-viewall = Button(app, width=20, text="View all", font="arial 10")
+viewall = Button(app, width=12, text="View all")
 viewall.grid(row=2,column=3)
 
 # SEARCH ENTRY BUTTON
-search = Button(app, width=20, text="Search entry", font="arial 10")
+search = Button(app, width=12, text="Search entry")
 search.grid(row=3,column=3)
 
 # ADD ENTRY BUTTON
-add = Button(app, width=20, text="Add entry", font="arial 10")
+add = Button(app, width=12, text="Add entry")
 add.grid(row=4,column=3)
 
 # UPDATE BUTTON
-update = Button(app, width=20, text="Update", font="arial 10")
+update = Button(app, width=12, text="Update selected")
 update.grid(row=5,column=3)
 
 # DELETE BUTTON
-delete = Button(app, width=20, text="Delete", font="arial 10")
+delete = Button(app, width=12, text="Delete selected")
 delete.grid(row=6,column=3)
 
 # CLOSE BUTTON
-close = Button(app, width=20, text="Close", font="arial 10")
+close = Button(app, width=12, text="Close")
 close.grid(row=7,column=3)
+
+# LISTBOX
+list1=Listbox(app, height=6,width=35)
+list1.grid(row=2,column=0,rowspan=6,columnspan=2)
+
+# SCROLLBAR
+sb1 = Scrollbar(app)
+sb1.grid(row=2,column=2,rowspan=6)
+
+# SCROLLBAR CONFIG
+list1.configure(yscrollcommand=sb1.set)
+sb1.configure(command=list1.yview)
+
 
 app.mainloop()
