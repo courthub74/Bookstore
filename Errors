@@ -1,0 +1,7 @@
+Tuples Out Of Range Error fix:
+The error was fixed by simply implementing a try  and except  block. 
+When the get_selected_row function is called, 
+Python will execute the indented block under try . 
+If there is an IndexError, none of the lines under try will be executed; the line under except will be executed, which is pass. 
+The pass  statement means "do nothing". 
+Therefore the function will do nothing when there's an empty listbox
