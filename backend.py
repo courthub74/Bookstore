@@ -7,7 +7,6 @@ def connect():
     conn.commit()
     conn.close()
 
-
 def insert(title,author,year,isbn):  # Pass the 4 arguments to be entered
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
@@ -22,8 +21,34 @@ def view():
     rows=cur.fetchall()
     conn.close()
     return rows
-    
-    
+
+def search(title="",author="",year="",isbn=""): # Passing empty strings so it defaults to the four args in case user enters less than 4 arguments
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=? ", (title,author,year,isbn))
+    rows=cur.fetchall()
+    conn.close()
+    return rows
+
+def delete(id):
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("DELETE FROM book WHERE id=?", (id,))
+    conn.commit()
+    conn.close()
+
+def update(id,title,author,year,isbn):
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?", (title,author,year,isbn,id))
+    conn.commit()
+    conn.close()
+
+
+
 connect()
-insert() #Every time you pass arguements according to insert func (title,author,year,isbn) you will insert into db
+#insert("The Sun","Jim Mikes",1970,91718984)
+#delete(2) #the ID is the number in front
+#update(4,"The Moon","John Smooth",1917,9999999)
 print(view())
+#print(search(author="Jim Mikes"))
