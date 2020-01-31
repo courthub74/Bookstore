@@ -1,6 +1,22 @@
 from tkinter import *
 import backend
 
+def get_selected_row(event):
+    try:
+        global selected_tuple
+        index=list1.curselection()[0]
+        selected_tuple=list1.get(index)
+        title.delete(0,END)
+        title.insert(END,selected_tuple[1])
+        year.delete(0,END)
+        year.insert(END,selected_tuple[2])
+        author.delete(0,END)
+        author.insert(END,selected_tuple[3])
+        isbn.delete(0,END)
+        isbn.insert(END,selected_tuple[4])
+    except IndexError:
+        pass 
+
 def view_command():
     list1.delete(0,END)
     for row in backend.view():
@@ -15,6 +31,13 @@ def add_command():
     backend.insert(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()))
+
+def delete_command():
+    backend.delete(selected_tuple[0])
+
+def update_command():
+    backend.update(selected_tuple[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    print(selected_tuple[0],selected_tuple[1],selected_tuple[2],selected_tuple[3],selected_tuple[4])
 
 
 app = Tk()
@@ -74,21 +97,22 @@ add = Button(app, width=12, text="Add entry",command=add_command)
 add.grid(row=4,column=3)
 
 # UPDATE BUTTON
-update = Button(app, width=12, text="Update selected")
+update = Button(app, width=12, text="Update selected",command=update_command)
 update.grid(row=5,column=3)
 
 # DELETE BUTTON
-delete = Button(app, width=12, text="Delete selected")
+delete = Button(app, width=12, text="Delete selected",command=delete_command)
 delete.grid(row=6,column=3)
 
 # CLOSE BUTTON
-close = Button(app, width=12, text="Close")
+close = Button(app, width=12, text="Close",command=app.destroy)
 close.grid(row=7,column=3)
 ###################################################
 
 # LISTBOX
 list1=Listbox(app, height=6,width=35)
 list1.grid(row=2,column=0,rowspan=6,columnspan=2)
+
 
 # SCROLLBAR
 sb1 = Scrollbar(app)
@@ -97,6 +121,8 @@ sb1.grid(row=2,column=2,rowspan=6)
 # SCROLLBAR CONFIG
 list1.configure(yscrollcommand=sb1.set)
 sb1.configure(command=list1.yview)
+
+list1.bind('<<ListboxSelect>>',get_selected_row)
 
 
 
