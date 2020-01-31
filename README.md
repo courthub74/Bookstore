@@ -13,3 +13,7 @@ _________________________________________________________
 - Update entry
 - Delete
 - Close
+
+### Things to add:
+- Clear Button
+- Refresh Button
