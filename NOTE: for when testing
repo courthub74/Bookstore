@@ -1,0 +1,16 @@
+# Notes on how to test print from the backend
+
+# testing INSERT
+# insert("The Sun","Jim Mikes",1970,91718984)
+
+#testing DELETE
+# delete(2) #the ID is the number in front
+
+# testing UPDATE
+# update(4,"The Moon","John Smooth",1917,9999999)
+
+# testing VIEW
+# print(view())
+
+# testing SEARCH
+# print(search(author="Jim Mikes"))
