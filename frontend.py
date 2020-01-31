@@ -78,5 +78,4 @@ sb1.grid(row=2,column=2,rowspan=6)
 list1.configure(yscrollcommand=sb1.set)
 sb1.configure(command=list1.yview)
 
-
 app.mainloop()
